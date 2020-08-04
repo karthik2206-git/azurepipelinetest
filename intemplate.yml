@@ -11,5 +11,5 @@ steps:
   parameters:
     print: ${{ parameters.print }}
     
-- script: 'echo $(displayName)'
+- script: 'echo $(message)'
   displayName: 'Multi Parameter job'    
