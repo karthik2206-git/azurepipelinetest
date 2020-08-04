@@ -1,0 +1,16 @@
+parameters:
+ displayName: ''
+ print: ''
+
+variables:
+- template: Variables.yml
+ 
+jobs:
+- template: testparam.yml
+  parameters:
+    print: ${{ parameters.displayName }}
+
+- template: testparam.yml
+  parameters:
+    print: ${{ Variables.print }}
+    
