@@ -1,9 +1,9 @@
 variables:
 - template: Variables.yml
 
-parameters:
- displayName: ''
- print: ''
+##parameters:
+ ##displayName: ''
+ ##print: ''
  
 steps:
 - template: testparam.yml
