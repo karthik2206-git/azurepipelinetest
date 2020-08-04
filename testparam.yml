@@ -4,5 +4,5 @@ parameters:
 
 steps:
 - script: 'echo ${{ parameters.print }}'
-  displayName: 'Run a one-line script'
+  displayName: 'This ia a Parameter job'
  
