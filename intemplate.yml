@@ -8,7 +8,8 @@ steps:
     print: ${{ parameters.displayName }}
 
 - template: testparam.yml
-    print: '$(print)'
+  parameters:
+    print: ${{ Variables.print }}
     
 - script: 'echo $(message)'
   displayName: 'Multi Parameter job'    
