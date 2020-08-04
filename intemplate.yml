@@ -5,4 +5,4 @@ parameters:
 steps:
 - template: testparam.yml
   parameters:
-    print: ${{ parameters.print }}
+    print: ${{ parameters.displayName }}
