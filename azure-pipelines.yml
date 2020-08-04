@@ -27,5 +27,6 @@ steps:
     
 - template: intemplate.yml
   parameters:
-    print: ${{ Variables.displayName }}    
+    displayName: ${{ Variables.displayName }}
+    print: ${{ Variables.print }}
    
