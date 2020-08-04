@@ -1,0 +1,18 @@
+Parameters: 
+ Solutionpath: ''
+
+jobs:
+- job: Build
+  dependsOn: RestorePackages
+  timeoutInMinutes: 360
+  steps:
+  - checkout: none
+  - task: VSBuild@1
+    displayName: 'Build DINxGen solutions'
+    inputs:
+     solution: ${{Parameters.Solutionpath}}
+     vsVersion: '$(vsVersion)'
+     platform: $(platform)
+     configuration: $(configuration)
+     clean: false
+    enabled: 'true'

@@ -1,0 +1,16 @@
+jobs:
+- job: CodeDuplication
+  condition: and(succeeded(), eq(variables['CodeDuplication'], 'true'))
+  dependsOn: Max_Cyclomatic_Complexicity
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate: Duplicated_Code'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.configjson) -p $(System.PullRequest.PullRequestId) -gateon tics_dc -biu $(EGS.BIU) -w $(Build.sourcesdirectory)'
+    enabled: 'true'

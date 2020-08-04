@@ -1,0 +1,34 @@
+variables:
+  - template: Templates/Variables.yml
+   
+trigger: none
+
+jobs:
+- template: Templates/Project_Settings.yml
+  parameters:
+    print: ${{ Variables.InterfacesPath }}
+- template: Templates/PRSize.yml
+- template: Templates/Restore_Build.yml
+- template: Templates/ProjSpec_CompilerWarnings.yml
+  parameters:
+    param1: 'value'
+- template: Templates/Compiler_Warnings.yml
+- template: Templates/Coding_Standreds.yml
+- template: Templates/Max_Cyclomatic_Complexicity.yml
+- template: Templates/CodeDuplication.yml
+- template: Templates/Unit_testing.yml
+#- template: Templates/FanOut.yml
+#- template: Templates/Abstract_interpretation.yml
+#  parameters:
+#    param1: 'value'
+#- template: Templates/Resharper.yml
+#- template: Templates/Dead_Code.yml
+#- template: Templates/UnitTest_Coverage.yml
+#- template: Templates/CodeScene.yml
+#- template: Templates/Packaging.yml
+#  parameters:
+#    param1: 'value'
+#- template: Templates/Deployment.yml
+#- template: Templates/Testing.yml
+
+

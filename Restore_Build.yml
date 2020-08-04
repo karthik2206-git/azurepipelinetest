@@ -1,0 +1,56 @@
+jobs:
+- job: Build
+  dependsOn: PRSize
+  timeoutInMinutes: 360
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: PowerShell@2
+    displayName: 'Set Variables for Modular Build and Testing'
+    inputs:
+     targetType: filePath
+     filePath: './Build/Pipeline_Scripts/SetVar_ModularBuildandTest.ps1'
+     arguments: 'C:\TICS_GATE_$(Agent.Name)'
+    enabled: 'true'
+
+- template: RestorePackages.yml
+  parameters:
+    Solutionpath: ${{Variables.Interfacespath}}
+
+- template: RestorePackages.yml
+  parameters:
+    Solutionpath: ${{Variables.ServicesPath}}
+
+- template: RestorePackages.yml
+  parameters:
+    Solutionpath: ${{Variables.UWFPath}}
+
+- template: RestorePackages.yml
+  parameters:
+    Solutionpath: ${{Variables.AutomationPath}}  
+    
+- task: PowerShell@1
+  displayName: ' File Versioning '
+  inputs:
+     scriptName: Build/DINxGenHostBuild.ps1
+     arguments: '$(Build.BuildId) $(Build.SourcesDirectory) $(GatedBuild) $(System.PullRequest.PullRequestId)'
+     workingFolder: '$(Build.SourcesDirectory)'
+
+- template: Build.yml
+  parameters:
+    Solutionpath: ${{Variables.Interfacespath}}
+
+- template: Build.yml
+  parameters:
+    Solutionpath: ${{Variables.ServicesPath}}
+
+- template: Build.yml
+  parameters:
+    Solutionpath: ${{Variables.UWFPath}}
+
+- template: Build.yml
+  parameters:
+    Solutionpath: ${{Variables.AutomationPath}}

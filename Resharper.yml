@@ -1,0 +1,15 @@
+
+jobs:
+- job: Resharper
+  condition: and(succeeded(), eq(variables['Resharper'], 'true'))
+  dependsOn: Build
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: Resharper
+    inputs:
+     script: 'echo Resharper'

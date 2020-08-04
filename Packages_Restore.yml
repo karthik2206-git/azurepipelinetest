@@ -1,0 +1,14 @@
+
+jobs:
+- job: Packages_Restore
+  timeoutInMinutes: 360
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: 'Restore Packages'
+    inputs:
+     script: 'echo Add script to restore packages'

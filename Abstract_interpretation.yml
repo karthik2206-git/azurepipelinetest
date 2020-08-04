@@ -1,0 +1,14 @@
+jobs:
+- job: Abstract_interpretation
+  condition: and(succeeded(), eq(variables['Abstract_interpretation'], 'true'))
+  dependsOn: Build
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: Abstract_interpretation_Coverity
+    inputs:
+     script: 'echo Abstract_interpretation_Coverity'

@@ -1,0 +1,14 @@
+jobs:
+- job: Dead_Code
+  condition: and(succeeded(), eq(variables['Dead_Code'], 'true'))
+  dependsOn: Build
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: Dead_Code
+    inputs:
+     script: 'echo Dead_Code'

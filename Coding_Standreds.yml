@@ -1,0 +1,18 @@
+jobs:
+- job: Coding_Standreds
+  condition: and(succeeded(), eq(variables['Coding_Standreds'], 'true'))
+  dependsOn: Compiler_Warnings
+  variables:
+    sourcesdirectory: $[ dependencies.Build.outputs['setvarStep.sourcesdirectory'] ]
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate: Coding_Standards'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.configjson) -p $(System.PullRequest.PullRequestId) -gateon tics_cs -biu $(EGS.BIU) -w $(build.sourcesdirectory)'
+    enabled: 'true'

@@ -1,0 +1,16 @@
+jobs:
+- job: Compiler_Warnings
+  condition: and(succeeded(), eq(variables['Compiler_Warnings'], 'true'))
+  dependsOn: ProjSpec_CompilerWarnings
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate: Compiler_Warnings'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.configjson) -p $(System.PullRequest.PullRequestId) -gateon tics_cw -biu $(EGS.BIU)  -w $(build.sourcesdirectory)'
+    enabled: 'true'

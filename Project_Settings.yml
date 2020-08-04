@@ -1,0 +1,23 @@
+parameters:
+  Print: ''
+jobs:
+- job: Project_Settings 
+  condition: and(succeeded(), eq(variables['ProjectSettings'], 'true'))
+  #dependsOn: PDP_EAS
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  #- checkout: none
+  - task: CmdLine@1
+    displayName: 'Gate: Project_Settings'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.configjson) -p $(System.PullRequest.PullRequestId) -gateon pscheck -biu $(EGS.BIU)  -w $(build.sourcesdirectory) -d'    
+    enabled: 'true'
+
+  - task: CmdLine@2
+    displayName: Print parameter 
+    inputs:
+     script: 'echo ${{parameters.print}}'

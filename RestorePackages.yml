@@ -1,0 +1,17 @@
+Parameters: 
+ Solutionpath: ''
+
+jobs:
+- job: RestorePackages
+  timeoutInMinutes: 360
+  steps:
+  - checkout: none
+  - task: ArtifactoryNuGet@1
+    displayName: 'Restore: packages'
+    inputs:
+     command: 'restore'
+     artifactoryService: 'JfrogArtifactory'
+     targetResolveRepo: 'dinxgenhost-virtual-nuget'
+     solutionPath: ${{ Parameters.Solutionpath }}
+     packagesDirectory: '$(build.sourcesdirectory)\3rdpartydlls'
+    enabled: 'true'

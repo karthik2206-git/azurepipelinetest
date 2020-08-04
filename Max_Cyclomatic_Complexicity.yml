@@ -1,0 +1,19 @@
+jobs:
+- job: Max_Cyclomatic_Complexicity
+  condition: and(succeeded(), eq(variables['Max_Cyclomatic_Complexicity'], 'true'))
+  dependsOn: Coding_Standreds
+  variables:
+    sourcesdirectory: $[ dependencies.Build.outputs['setvarStep.sourcesdirectory'] ]
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate:Max_Cyclomatic_Complexicity'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.configjson) -p $(System.PullRequest.PullRequestId) -gateon tics_mcc -biu $(EGS.BIU) -w $(Build.sourcesdirectory)'
+    enabled: 'true'
+    continueOnError: true
