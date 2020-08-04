@@ -24,3 +24,8 @@ steps:
 - template: testparam.yml
   parameters:
     print: ${{ Variables.print }}
+    
+- template: intemplate.yml
+  parameters:
+    print: ${{ Variables.displayName }}    
+   
