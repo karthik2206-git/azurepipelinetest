@@ -1,3 +1,4 @@
 variables:
   displayName: 'Test message'
   print: 'printed the parameter'
+  message: 'variable message'
