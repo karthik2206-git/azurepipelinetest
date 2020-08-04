@@ -1,3 +1,6 @@
+variables:
+- template: Variables.yml
+
 parameters:
  displayName: ''
  print: ''
