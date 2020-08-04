@@ -3,9 +3,6 @@ parameters:
  print: ''
  
 steps:
-- script: 'echo ${{ parameters.displayName }}'
-  displayName: 'This ia a Parameter job'
-
 - template: testparam.yml
   parameters:
-    print: ${{ Variables.print }}
+    print: ${{ parameters.print }}
