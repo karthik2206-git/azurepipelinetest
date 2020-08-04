@@ -1,0 +1,10 @@
+parameters:
+ print: ''
+ 
+
+steps:
+- task: CmdLine@1
+  displayname: print from the parameter
+  inputs:
+   script: 'echo ${{ parameters.print }}'
+ 
