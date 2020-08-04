@@ -29,4 +29,6 @@ steps:
   parameters:
     displayName: ${{ Variables.displayName }}
     print: ${{ Variables.print }}
+    
+ - template: varifiletest.yml
    
