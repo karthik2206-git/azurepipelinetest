@@ -6,3 +6,10 @@ steps:
 - template: testparam.yml
   parameters:
     print: ${{ parameters.displayName }}
+
+- template: testparam.yml
+  parameters:
+    print: ${{ parameters.print }}
+    
+- script: 'echo $(displayName)'
+  displayName: 'Multi Parameter job'    
